@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>fkuiVue demo</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://unpkg.com/vuex@3.1.1/dist/vuex.js"></script>
+        <script src="./fkuiVue.umd.js"></script>
+        
+        <link rel="stylesheet" href="./fkuiVue.css">
+    </head>
+    <body>
+        <div id="app">
+            <template>
+                <Calendar name="simpleCalendar" id="simpleCalendar">
+                    <template v-slot:editbox>
+                        <TextInput name="foralder" valid="true">Förälder</TextInput>
+                        <TextInput name="barn" valid="true">Barn</TextInput>
+                        <Dropdown name="anledning" label="Anledning">
+                            <DropdownOption value="GLOMT">Jag glömde bort att göra en anmälan</DropdownOption>
+                            <DropdownOption value="ANNAN">Annan</DropdownOption>
+                        </Dropdown>
+                    </template>
+                
+                    <template v-slot:addedday-data="slotprops">
+                        <div><b>Förälder:</b> {{ slotprops.collected.foralder }}</div>
+                        <div><b>Barn:</b> {{ slotprops.collected.barn }}</div>
+                        <div><b>Anledning:</b> {{ slotprops.collected.anledning }}</div>
+                    </template>
+                </Calendar>
+            </template>
+        </div>
+            
+        <script>
+            Vue.use(Vuex);
+
+            const store = new Vuex.Store({
+                state: {},
+                mutations: {},
+                actions: {},
+                modules: {
+                    fkcalendar: {},
+                },
+            });
+
+            new Vue({
+                el: "#app",
+                store: store,
+                components: {
+                    Calendar: fkuiVue.Calendar,
+                    TextInput: fkuiVue.TextInput,
+                    Dropdown: fkuiVue.Dropdown,
+                    DropdownOption: fkuiVue.DropdownOption,
+                }
+            });
+
+            console.log(fkuiVue)
+        </script>
+    </body>
+</html>
